@@ -1,20 +1,18 @@
-
 #include <iostream>
 using namespace std;
 class MAT
 {
-	int col;
-	int row;
+	int height;
+	int width;
 	int **cell;
 public:
-	void setSize(int r, int c)
+	void setSize(int h, int w)
 	{
-		col = c;
-		row = r;
-		cell = new int*[row];
-		for (int i = 0; i < row; i++)
-			cell[i] = new int[col];
-				
+		height = h;
+		width = w;
+		cell = new int*[height];
+		for (int i = 0; i < height; i++)
+			cell[i] = new int[width];
 	}
 	void set(int x, int y, int val)
 	{
@@ -23,9 +21,9 @@ public:
 	void show()
 	{
 		int i, j;
-		for (i = 0; i < row; i++)
+		for (i = 0; i < height; i++)
 		{
-			for (j = 0; j < col; j++)
+			for (j = 0; j < width; j++)
 				cout << cell[i][j] << "\t";
 			cout << endl;
 		}
@@ -33,27 +31,49 @@ public:
 	void transposeshow()
 	{
 		int i, j;
-		for (j = 0; j < col; j++)
+		for (j = 0; j < width; j++)
 		{
-			for (i = 0; i < row; i++)
+			for (i = 0; i < height; i++)
 				cout << cell[i][j] << "\t";
 			cout << endl;
 		}
 	}
 	void free()
 	{
-
 		int i;
-		for (i = 0; i < row; i++)
+		for (i = 0; i < height; i++)
 			delete[] cell[i];
 		delete[] cell;
 		cell = 0;
-		col = 0;
-		row = 0;
+		height = 0;
+		width = 0;
 	}
 	void transpose()
 	{
-
+		int **mat_flip;
+		mat_flip=new int*[width];
+		for(int i=0;i<width;i++){
+			mat_flip[i]=new int[height];
+		}//宣告相反大小的陣列 ex:3x2->2x3 
+		
+		for(int i=0;i<height;i++){
+			for(int j=0;j<width;j++){
+				mat_flip[j][i]=cell[i][j];
+			}
+		}//複製值 
+		
+		for(int i=0;i<height;i++){
+			delete [] cell[i];
+		}
+		delete [] cell;
+		//釋放空間 
+		
+		cell = mat_flip;
+		
+		int temp=height;
+		height=width;
+		width=temp;
+		//高寬互換 
 	}
 };
 class App
@@ -72,7 +92,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
@@ -83,5 +103,3 @@ int main()
 	App app;
 	app.run();
 }
-
-
