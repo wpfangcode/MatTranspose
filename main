@@ -68,10 +68,7 @@ public:
 		delete [] cell;
 		//釋放空間 
 		
-		cell = new int*[width];
-		for(int i=0;i<width;i++){
-			cell[i]=mat_flip[i];
-		}//重新指定 
+		cell = mat_flip;
 		
 		int temp=height;
 		height=width;
