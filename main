@@ -72,7 +72,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-    A.show();
+                A.show();
 		A.free();
 	}
 };
