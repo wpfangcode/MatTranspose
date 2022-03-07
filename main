@@ -1,4 +1,3 @@
-
 #include <iostream>
 using namespace std;
 class MAT
@@ -14,7 +13,7 @@ public:
 		cell = new int*[row];
 		for (int i = 0; i < row; i++)
 			cell[i] = new int[col];
-				
+
 	}
 	void set(int x, int y, int val)
 	{
@@ -53,7 +52,22 @@ public:
 	}
 	void transpose()
 	{
-
+		int **cell2;
+		cell2 = new int*[col];
+		for (int i = 0; i < col; i++)
+			cell2[i] = new int[row];
+		for (int n = 0;n < row;n++)
+		{
+			for (int i = 0;i < col;i++)
+			{
+				cell2[i][n] = cell[n][i];
+			}
+		}
+		int cc = row;
+		int rr = col;
+		free();
+		setSize(rr, cc);
+		cell = cell2;
 	}
 };
 class App
@@ -72,7 +86,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
@@ -83,5 +97,3 @@ int main()
 	App app;
 	app.run();
 }
-
-
