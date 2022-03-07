@@ -53,7 +53,23 @@ public:
 	}
 	void transpose()
 	{
+		MAT B; //建立新MAT
+		B.setSize(col, row); //設立空間大小-3*2(列*行)
+		int i, j;
+		for (i = 0; i < B.row; i++) //列
+		{
+			for (j = 0; j < B.col; j++)  //行 (0.0)(0,1)(0,2)(1,0)(1,1)(1,2)
+				B.cell[i][j] = cell[j][i];
+		} //把原本的轉置到MAT B
+		
+		free(); //清空MAT A
 
+		setSize(B.row, B.col); //重新設立空間大小-2*3(列*行)
+		for (i = 0; i < row; i++) 
+		{
+			for (j = 0; j < col; j++)
+				cell[i][j] = B.cell[i][j]; //把暫存在MAT B的陣列，放回原本的陣列
+		}
 	}
 };
 class App
