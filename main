@@ -1,87 +1,98 @@
+
 #include <iostream>
-
 using namespace std;
-
-class Matrix {
+class MAT
+{
+	unsigned int col;
+	unsigned int row;
+	int **cell;
 public:
-	void setSize(int row, int col) {
-		this->row = row;
-		this->col = col;
-		MAT = new int* [row];
-		for (int i = 0; i < row; i++) {
-			MAT[i] = new int[col];
-		}
+	void setSize(int r, int c)
+	{
+		col = c;
+		row = r;
+		cell = new int*[row];
+		for (int i = 0; i < row; i++)
+			cell[i] = new int[col];
+				
 	}
-	void set(int row, int col, int data) {
-		MAT[row][col] = data;
+	void set(int x, int y, int val)
+	{
+		cell[x][y] = val;
 	}
-	void show() {
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				cout << MAT[i][j] << " ";
-			}
+	void show()
+	{
+		int i, j;
+		for (i = 0; i < row; i++)
+		{
+			for (j = 0; j < col; j++)
+				cout << cell[i][j] << "\t";
 			cout << endl;
 		}
-		cout << "---------------------" << endl;
 	}
-	void free() {
-		for (int i = 0; i < row; i++) {
-			delete[] MAT[i];
+	void transposeshow()
+	{
+		int i, j;
+		for (j = 0; j < col; j++)
+		{
+			for (i = 0; i < row; i++)
+				cout << cell[i][j] << "\t";
+			cout << endl;
 		}
-		delete[] MAT;
 	}
-	void transpose() {
+	void free()
+	{
+
+		int i;
+		for (i = 0; i < row; i++)
+			delete[] cell[i];
+		delete[] cell;
+		cell = 0;
+		col = 0;
+		row = 0;
+	}
+	void transpose()
+	{
 		unsigned int _temp = col;
 		col = row;
 		row = _temp;
 		int** temp = new int* [row];
-		for (int i = 0; i < row; i++) {
+		
+		int i = 0, j = 0;
+		for (i = 0; i < row; i++)
 			temp[i] = new int[col];
+		for (i = 0; i < row; i++) {
+			for (j = 0; j < col; j++)
+				temp[i][j] = cell[j][i];
 		}
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				temp[i][j] = MAT[j][i];
-			}
-		}
-		free();
-		MAT = temp;
+		for (i = 0; i < col; i++)
+			delete[] cell[i];
+		delete[] cell;
+		cell = temp;
 	}
-private:
-	unsigned int row;
-	unsigned int col;
-	int** MAT;
 };
-class App {
+class App
+{
 public:
-	void run() {
-		Matrix* mat = new Matrix();
-		mat->setSize(3, 2);
-		mat->set(0, 0, 1);
-		mat->set(0, 1, 2);
-		mat->set(1, 0, 7);
-		mat->set(1, 1, 8);
-		mat->set(2, 0, 3);
-		mat->set(2, 1, 4);
-		mat->show();
-		mat->transpose();
-		mat->show();
-		mat->free();
-		mat->setSize(3, 3);
-		mat->set(0, 0, 1);
-		mat->set(0, 1, 2);
-		mat->set(0, 2, 3);
-		mat->set(1, 0, 4);
-		mat->set(1, 1, 5);
-		mat->set(1, 2, 6);
-		mat->set(2, 0, 7);
-		mat->set(2, 1, 8);
-		mat->set(2, 2, 9);
-		mat->show();
-		mat->transpose();
-		mat->show();
-		mat->free();
+	void run()
+	{
+		MAT A;
+		A.setSize(3, 2);
+		A.set(0, 0, 5);
+		A.set(0, 1, 9);
+		A.set(1, 0, 6);
+		A.set(1, 1, 8);
+		A.set(2, 0, 7);
+		A.set(2, 1, 11);
+		A.show();
+		cout << "-----------------" << endl;
+		A.transpose();
+		A.show();
+		A.free();
 	}
 };
+
+
 int main()
 {
 	App app;
