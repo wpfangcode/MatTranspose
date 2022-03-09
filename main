@@ -1,20 +1,20 @@
-
 #include <iostream>
 using namespace std;
 class MAT
 {
 	int col;
 	int row;
-	int **cell;
+	int** cell;
 public:
 	void setSize(int r, int c)
 	{
 		col = c;
 		row = r;
-		cell = new int*[row];
+		cell = new int* [row];
+		cell = new int* [row];
 		for (int i = 0; i < row; i++)
 			cell[i] = new int[col];
-				
+
 	}
 	void set(int x, int y, int val)
 	{
@@ -43,9 +43,9 @@ public:
 	void free()
 	{
 
-		int i;
-		for (i = 0; i < row; i++)
-			delete[] cell[i];
+		int x;
+		for (x = 0; x < row; x++)
+			delete[] cell[x];
 		delete[] cell;
 		cell = 0;
 		col = 0;
@@ -53,7 +53,30 @@ public:
 	}
 	void transpose()
 	{
+		int** cell2;
+		cell2 = new int* [col];
+		for (int x = 0; x < col; x++)
+		{
+			cell2[x] = new int[row];
+		}
+		for (int x = 0; x < col; x++)
+		{
+			for (int y = 0; y < row; y++)
+			{
+				cell2[x][y] = cell[y][x];
+			}
+		}
+		for (int x = 0; x < row; x++)
+		{
+			delete[]cell[x];
+		}
+		delete[] cell;
 
+		int num = row;
+		row = col;
+		col = num;
+		setSize(row, col);
+		cell = cell2;
 	}
 };
 class App
@@ -72,7 +95,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
@@ -82,6 +105,5 @@ int main()
 {
 	App app;
 	app.run();
+	return 0;
 }
-
-
