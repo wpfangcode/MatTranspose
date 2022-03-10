@@ -5,16 +5,16 @@ class MAT
 {
 	int col;
 	int row;
-	int **cell;
+	int** cell;
 public:
 	void setSize(int r, int c)
 	{
 		col = c;
 		row = r;
-		cell = new int*[row];
+		cell = new int* [row];
 		for (int i = 0; i < row; i++)
 			cell[i] = new int[col];
-				
+
 	}
 	void set(int x, int y, int val)
 	{
@@ -52,8 +52,31 @@ public:
 		row = 0;
 	}
 	void transpose()
-	{
+	{   
+		int** tran;  //動態記憶體宣告二維陣列
+		int r = col; //new col=row transpose
+		int c = row; //new row=col transpose
 
+		
+		tran = new int* [r];
+		for (int i = 0; i < r; i++)
+		{
+			tran[i] = new int[c];
+		}
+
+		for (int i = 0; i < r; i++)
+		{
+			for (int j = 0; j < c; j++)
+			{
+				tran[i][j] = cell[j][i];
+			}
+		}
+
+		free();//釋放之前的記憶體
+		cell = tran;
+		row = r;//r=coltranspose
+		col = c;//c=rowtranspose
+		
 	}
 };
 class App
@@ -72,7 +95,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
@@ -83,5 +106,3 @@ int main()
 	App app;
 	app.run();
 }
-
-
