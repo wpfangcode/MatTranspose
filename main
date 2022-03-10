@@ -5,16 +5,17 @@ class MAT
 {
 	int col;
 	int row;
-	int **cell;
+	int** cell;
 public:
 	void setSize(int r, int c)
 	{
 		col = c;
 		row = r;
-		cell = new int*[row];
+		cell = new int* [row];
+		cell = new int* [row];
 		for (int i = 0; i < row; i++)
 			cell[i] = new int[col];
-				
+
 	}
 	void set(int x, int y, int val)
 	{
@@ -53,7 +54,22 @@ public:
 	}
 	void transpose()
 	{
+		int**newcell;
+		newcell = new int* [col];
+		for (int n = 0; n < col; n++)
+			newcell[n] = new int[row];
+		for (int j = 0; j< col; j++)
+			for (int i = 0; i < row; i++)
+				newcell[j][i] = cell[i][j];
+		for (int i = 0; i < row; i++)
+			delete[]cell[i];
+		delete[] cell;
 
+		int trans = row;
+		row = col;
+		col = trans;
+		setSize(row, col);
+		cell = newcell;
 	}
 };
 class App
@@ -72,7 +88,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
@@ -82,6 +98,6 @@ int main()
 {
 	App app;
 	app.run();
+	return 0;
 }
-
 
