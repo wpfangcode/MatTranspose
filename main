@@ -53,6 +53,25 @@ public:
 	}
 	void transpose()
 	{
+int** newcell;
+		int i, j;
+		newcell = new int* [col];
+		for (i = 0; i < col; i++)
+		{
+			newcell[i] = new int[row];
+		}
+		for (i = 0; i < col; i++)
+		{
+			for (j = 0; j < row; j++)
+			{
+				newcell[i][j] = cell[j][i];
+			}
+		}
+		int n = row;
+		row = col;
+		col = n;
+		setSize(row, col);
+		cell = newcell;
 
 	}
 };
