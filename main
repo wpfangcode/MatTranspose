@@ -53,7 +53,47 @@ public:
 	}
 	void transpose()
 	{
-
+		int **celltwo;
+		int x;
+		
+		//exchange the number of row and col
+		x = row;
+		row = col;
+		col = x;
+		
+		//second matrix for temporary storage
+		celltwo = new int*[row];
+		for (int i = 0; i < row; i++)
+			celltwo[i] = new int[col];
+		
+		//transpose
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+				celltwo[i][j] = cell[j][i];
+		}
+		
+		//free old cell
+		for (i = 0; i < col; i++)
+			delete[] cell[i];
+		delete[] cell;
+		
+		//declare new cell
+		cell = new int*[col];
+		for (int i = 0; i < row; i++)
+			cell[i] = new int[row];
+		
+		//copy numbers
+		for (int i = 0; i < row; i++)
+		{
+			for (int j = 0; j < col; j++)
+				cell[i][j] = celltwo[i][j];
+		}
+		
+		//free celltwo
+		for (i = 0; i < col; i++)
+			delete[] celltwo[i];
+		delete[] celltwo;
 	}
 };
 class App
