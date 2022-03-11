@@ -1,20 +1,19 @@
-
 #include <iostream>
 using namespace std;
 class MAT
 {
 	int col;
 	int row;
-	int **cell;
+	int** cell;
 public:
 	void setSize(int r, int c)
 	{
 		col = c;
 		row = r;
-		cell = new int*[row];
+		cell = new int* [row];
 		for (int i = 0; i < row; i++)
 			cell[i] = new int[col];
-				
+
 	}
 	void set(int x, int y, int val)
 	{
@@ -42,7 +41,6 @@ public:
 	}
 	void free()
 	{
-
 		int i;
 		for (i = 0; i < row; i++)
 			delete[] cell[i];
@@ -53,7 +51,22 @@ public:
 	}
 	void transpose()
 	{
+		int** twoDimensionArray = new int* [col]; //儲存指標(行->列)的陣列
+		for (int i = 0; i < col; i++) //給每個指標一個陣列
+			twoDimensionArray[i] = new int[row]; //前者陣列(列)的每一項都創造一個新的陣列(行)
+		for (int i = 0; i < col; i++)
+			for (int j = 0; j < row; j++)
+				twoDimensionArray[i][j] = cell[j][i]; //矩陣轉制公式
 
+		for (int i = 0; i < row; i++) //動態記憶體宣告需刪除記憶體
+			delete[]cell[i];
+		delete[] cell;
+
+		int trans = row;
+		row = col;
+		col = trans;
+		setSize(row, col);
+		cell = twoDimensionArray;
 	}
 };
 class App
@@ -72,16 +85,12 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
-
-
 int main()
 {
 	App app;
 	app.run();
 }
-
-
