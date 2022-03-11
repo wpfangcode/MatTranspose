@@ -1,11 +1,14 @@
-
+#include "pch.h"
 #include <iostream>
+
 using namespace std;
 class MAT
 {
+private:
 	int col;
 	int row;
 	int **cell;
+	int **trscell;
 public:
 	void setSize(int r, int c)
 	{
@@ -14,7 +17,7 @@ public:
 		cell = new int*[row];
 		for (int i = 0; i < row; i++)
 			cell[i] = new int[col];
-				
+
 	}
 	void set(int x, int y, int val)
 	{
@@ -42,7 +45,6 @@ public:
 	}
 	void free()
 	{
-
 		int i;
 		for (i = 0; i < row; i++)
 			delete[] cell[i];
@@ -53,6 +55,30 @@ public:
 	}
 	void transpose()
 	{
+		int x = row;
+		int y = col;
+		trscell = new int*[col];
+		for (int i = 0; i < col; i++)
+			trscell[i] = new int[row];
+
+		for (int j = 0; j < row; j++)
+		{
+			for (int i = 0; i < col; i++)
+			{
+				trscell[i][j] = cell[j][i];
+			}
+		}
+		free();
+		setSize(y,x);
+		for (int j = 0; j < col; j++)
+		{
+			for (int i = 0; i < row; i++)
+			{
+				cell[i][j] = trscell[i][j];
+			}
+		}
+
+
 
 	}
 };
@@ -72,7 +98,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
@@ -83,5 +109,3 @@ int main()
 	App app;
 	app.run();
 }
-
-
