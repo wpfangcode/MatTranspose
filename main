@@ -1,20 +1,19 @@
-
 #include <iostream>
 using namespace std;
 class MAT
 {
 	int col;
 	int row;
-	int **cell;
+	int** cell;
 public:
 	void setSize(int r, int c)
 	{
 		col = c;
 		row = r;
-		cell = new int*[row];
+		cell = new int* [row];
 		for (int i = 0; i < row; i++)
 			cell[i] = new int[col];
-				
+
 	}
 	void set(int x, int y, int val)
 	{
@@ -53,7 +52,22 @@ public:
 	}
 	void transpose()
 	{
+		int** meh;
+		meh = new int* [col];
+		for (int i = 0; i < col; i++)
+			meh[i] = new int[row];
+		for (int i = 0; i < col; i++)
+			for (int j = 0; j < row; j++)
+				meh[i][j] = cell[j][i];
+		for (int i = 0; i < row; i++)
+			delete[]cell[i];
+		delete[] cell;
 
+		int trans = row;
+		row = col;
+		col = trans;
+		setSize(row, col);
+		cell = meh;
 	}
 };
 class App
@@ -72,7 +86,7 @@ public:
 		A.show();
 		cout << "-----------------" << endl;
 		A.transpose();
-                A.show();
+		A.show();
 		A.free();
 	}
 };
@@ -83,5 +97,3 @@ int main()
 	App app;
 	app.run();
 }
-
-
