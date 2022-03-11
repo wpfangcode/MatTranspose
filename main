@@ -1,87 +1,115 @@
-
 #include <iostream>
 using namespace std;
 class MAT
 {
-	int col;
-	int row;
-	int **cell;
+    int col;
+    int row;
+    int **cell;
 public:
-	void setSize(int r, int c)
-	{
-		col = c;
-		row = r;
-		cell = new int*[row];
-		for (int i = 0; i < row; i++)
-			cell[i] = new int[col];
-				
-	}
-	void set(int x, int y, int val)
-	{
-		cell[x][y] = val;
-	}
-	void show()
-	{
-		int i, j;
-		for (i = 0; i < row; i++)
-		{
-			for (j = 0; j < col; j++)
-				cout << cell[i][j] << "\t";
-			cout << endl;
-		}
-	}
-	void transposeshow()
-	{
-		int i, j;
-		for (j = 0; j < col; j++)
-		{
-			for (i = 0; i < row; i++)
-				cout << cell[i][j] << "\t";
-			cout << endl;
-		}
-	}
-	void free()
-	{
+    void setSize(int r, int c)
+    {
+        col = c;
+        row = r;
+        cell = new int*[row];
+        for (int i = 0; i < row; i++)
+            cell[i] = new int[col];
+                
+    }
+    void set(int x, int y, int val)
+    {
+        cell[x][y] = val;
+    }
+    void show()
+    {
+        int i, j;
+        for (i = 0; i < row; i++)
+        {
+            for (j = 0; j < col; j++)
+                cout << cell[i][j] << "\t";
+            cout << endl;
+        }
+    }
+    
+    
+    void transposeshow()
+    {
+        int i, j;
+        for (j = 0; j < col; j++)
+        {
+            for (i = 0; i < row; i++)
+                cout << cell[i][j] << "\t";
+            cout << endl;
+        }
+    }
+    
+    
+    void free()
+    {
 
-		int i;
-		for (i = 0; i < row; i++)
-			delete[] cell[i];
-		delete[] cell;
-		cell = 0;
-		col = 0;
-		row = 0;
-	}
-	void transpose()
-	{
+        int i;
+        for (i = 0; i < row; i++)
+            delete[] cell[i];
+        delete[] cell;
+        cell = 0;
+        col = 0;
+        row = 0;
+    }
+    void transpose()
+    {
+        int** tran;  //動態記憶體宣告二維陣列
+                 int r = col; //new col=row transpose
+                 int c = row; //new row=col transpose
 
-	}
+
+                 tran = new int* [r];
+                 for (int i = 0; i < r; i++)
+                 {
+                     tran[i] = new int[c];
+                 }
+
+                 for (int i = 0; i < r; i++)
+                 {
+                     for (int j = 0; j < c; j++)
+                     {
+                         tran[i][j] = cell[j][i];
+                     }
+                 }
+
+                 free();//釋放之前的記憶體
+                 cell = tran;
+                 row = r;//r=coltranspose
+                 col = c;//c=rowtranspose
+    }
 };
 class App
 {
 public:
-	void run()
-	{
-		MAT A;
-		A.setSize(3, 2);
-		A.set(0, 0, 5);
-		A.set(0, 1, 9);
-		A.set(1, 0, 6);
-		A.set(1, 1, 8);
-		A.set(2, 0, 7);
-		A.set(2, 1, 11);
-		A.show();
-		cout << "-----------------" << endl;
-		A.transpose();
+    void run()
+    {
+        MAT A;
+        A.setSize(3, 2);
+        A.set(0, 0, 5);
+        A.set(0, 1, 9);
+        A.set(1, 0, 6);
+        A.set(1, 1, 8);
+        A.set(2, 0, 7);
+        A.set(2, 1, 11);
+        A.show();
+        cout << "-----------------" << endl;
+        A.transpose();
                 A.show();
-		A.free();
-	}
+        A.free();
+    }
 };
 
 
 int main()
 {
-	App app;
-	app.run();
+    App app;
+    app.run();
 }
+
+
+
 
 
