@@ -53,12 +53,27 @@ public:
 	}
 	void transpose()
 	{
+	int **newcel;
+	newcel = new int* [col];
+	for (int n = 0; n < col; n++)
+	newcel[n] = new int[row];
+	for (int j = 0; j< col; j++)
+	for (int i = 0; i < row; i++)
+	newcel[j][i] = cell[i][j];
+	for (int i = 0; i < row; i++)
+	delete[]cell[i];
+	delete[] cell;
 
+	int tran = row;
+	row = col;
+	col = tran;
+	setSize(row, col)
+	cell = newcel;
 	}
-};
-class App
-{
-public:
+	};
+	class App
+	{
+	public:
 	void run()
 	{
 		MAT A;
@@ -75,13 +90,13 @@ public:
                 A.show();
 		A.free();
 	}
-};
+	};
 
 
-int main()
-{
+	int main()
+	{
 	App app;
-	app.run();
-}
+		app.run();
+	}
 
 
