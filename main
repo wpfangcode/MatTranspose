@@ -52,13 +52,26 @@ public:
     }
     void transpose()
     {
-        col=row;
+        int a;
+        a=row;
         row=col;
-        for(int i=0;i<col;i++)
+        col=a;
+        for(int i=0;i<row;i++)
         {
-            for(int j=0;j<row;j++)
+            for(int j=0;j<col;j++)
             {
-                cell[i][j]=cell[j][i];
+                if(i>j)
+                {
+                    cell[i][j]=cell[i][j];
+                }
+                else
+                {
+                    
+                    int temp=cell[i][j];
+                    cell[i][j]=cell[j][i];
+                    cell[j][i]=temp;
+                }
+               
             }
         }
     }
@@ -90,5 +103,3 @@ int main()
     App app;
     app.run();
 }
-
-
